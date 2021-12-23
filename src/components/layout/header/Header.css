@@ -1,0 +1,14 @@
+.header {
+  background-color: white;
+  height: 75px;
+  display: flex;
+}
+
+.logo {
+  height: 75px;
+}
+
+.about{
+display: flex;
+align-items: flex-end;
+}
