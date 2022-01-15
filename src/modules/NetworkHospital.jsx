@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Input, Button, AutoComplete } from "antd";
+import Hospitalloaction from "./components/locatehospital/Hospitalloaction";
 
 // import Autocomplete from "react-google-autocomplete";
 // import { Input, } from "antd";
@@ -18,22 +19,20 @@ function NetworkHospital() {
       value: "HSR Layout",
     },
   ]);
+  const [selectedLocation, setSelectedLocation] = useState();
 
   //
   const googlePlaceAPIData = "";
 
   const selectedVal = (value, option) => {
-    debugger;
+    if (option) {
+      setSelectedLocation(option);
+    }
   };
 
-  //
-  //
-  // POST / GET
-
-  //   <Autocomplete
-  //   apiKey={'AIzaSyCphHLjn_Ov0Wuw5O1c3c8NOVMthcJRECA'}
-  //   onPlaceSelected={(place) => console.log(place)}
-  // />
+  const reselectLocation = () => {
+    setSelectedLocation("");
+  };
 
   return (
     <div style={{ marginTop: "150px" }}>
@@ -42,25 +41,34 @@ function NetworkHospital() {
         <span style={{ color: "blue" }}>Network Hospital</span> to plan and
         avail a cashless hospitalisation
       </h1>
-      <Input.Group compact>
-        <AutoComplete
-          style={{
-            width: 200,
-            height: "50px",
-          }}
-          options={option}
-          placeholder="Enter Location"
-          filterOption={(inputValue, option) =>
-            option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !== -1
-          }
-          onSelect={(value, option) => selectedVal(value, option)}
-        />
 
-        {/* <Button type="primary" style={{ height: "50px" }}>
-          Use current location
-        </Button>
-        */}
-      </Input.Group>
+      {selectedLocation && selectedLocation.value ? (
+        <Hospitalloaction
+          hospitalLoaction={selectedLocation}
+          locationReset={reselectLocation}
+        />
+      ) : (
+        <Input.Group compact>
+          <AutoComplete
+            style={{
+              width: 200,
+              height: "50px",
+            }}
+            options={option}
+            placeholder="Enter Location"
+            filterOption={(inputValue, option) =>
+              option.value.toUpperCase().indexOf(inputValue.toUpperCase()) !==
+              -1
+            }
+            onSelect={(value, option) => selectedVal(value, option)}
+          />
+
+          {/* <Button type="primary" style={{ height: "50px" }}>
+        Use current location
+      </Button>
+      */}
+        </Input.Group>
+      )}
     </div>
   );
 }

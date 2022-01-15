@@ -1,10 +1,10 @@
 import React from 'react'
-import Pic from '../../../img/download.jpg'
+// import Pic from '../../../img/download.jpg'
 
 function About() {
     return (
         <div >
-           <img src={Pic}  />
+        <h1>about</h1>
         </div>
     )
 }
